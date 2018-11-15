@@ -140,6 +140,7 @@ function Invoke-AzureDevOpsRestMethod {
         $Method = 'GET',
 
         [Parameter(Position=3)]
+        [Hashtable]
         $Body = $null
     )
     $encodedToken = if ($Token) {
@@ -159,7 +160,7 @@ function Invoke-AzureDevOpsRestMethod {
     }
 
     if ($Method -eq 'POST') {
-        $restParams.Add('Body', $Body)
+        $restParams.Add('Body', ($Body | ConvertTo-Json))
         $restParams.Add('ContentType', 'application/json')
     }
     
