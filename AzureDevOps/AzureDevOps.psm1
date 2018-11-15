@@ -84,13 +84,13 @@ function Get-AzureDevOpsTokenCredential {
 }
 Export-ModuleMember -Function Get-AzureDevOpsTokenCredential
 
-function Invoke-AzureDevOpsRestRequest {
+function Invoke-AzureDevOpsRestMethod {
     <#
         .SYNOPSIS
            Sends a request to the Azure DevOps Services RESTful web service.
 
         .DESCRIPTION
-            The Invoke-AzureDevOpsRestRequest function sends a request to the Azure DevOps Services RESTful web service. 
+            The Invoke-AzureDevOpsRestMethod function sends a request to the Azure DevOps Services RESTful web service. 
 
         .PARAMETER  Uri
             URI to send the request.
@@ -113,7 +113,7 @@ function Invoke-AzureDevOpsRestRequest {
             Personal access token.
 
         .EXAMPLE
-            PS C:\> Invoke-AzureDevOpsRestRequest -Uri 'https://<organization>.visualstudio.com/_apis/distributedtask/pools/<id>/agents' -Body @{includeCapabilities='true'} -Credential $cred
+            PS C:\> Invoke-AzureDevOpsRestMethod -Uri 'https://<organization>.visualstudio.com/_apis/distributedtask/pools/<id>/agents' -Body @{includeCapabilities='true'} -Credential $cred
             
             Sends a request to Azure DevOps to get the test agents and their capabilities.
     #>
@@ -167,4 +167,4 @@ function Invoke-AzureDevOpsRestRequest {
         Invoke-RestMethod @restParams
     }
 }
-Export-ModuleMember -Function Invoke-AzureDevOpsRestRequest
+Export-ModuleMember -Function Invoke-AzureDevOpsRestMethod
