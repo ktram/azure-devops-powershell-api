@@ -148,20 +148,13 @@ function Invoke-AzureDevOpsRestRequest {
         [Convert]::ToBase64String([System.Text.Encoding]::UTF8.GetBytes(":$($Credential.GetNetworkCredential().Password)"))
     }
 
-    $azureDevOpsUri = $Uri
-    if ($Body.Count -gt 0) {
-        $params = $Body.Keys | ForEach-Object { "$_=$($Body[$_])" }
-        $paramString = $params -join '&'
-        $azureDevOpsUri = "$Uri`?$paramString"
-    }
-
     $restParams = @{
-        'Uri' = $azureDevOpsUri
+        'Uri' = $Uri
         'Headers' = @{Authorization = "Basic $encodedToken"}
         'Method' = $Method
     }
 
-    if ($Method -eq 'Get') {
+    if ($Method -eq 'GET') {
         $restParams.Add('Body', $Body)
     }
 
@@ -170,7 +163,7 @@ function Invoke-AzureDevOpsRestRequest {
         $restParams.Add('ContentType', 'application/json')
     }
     
-    if ($PSCmdlet.ShouldProcess($azureDevOpsUri, $Method)) {
+    if ($PSCmdlet.ShouldProcess($Uri, $Method)) {
         Invoke-RestMethod @restParams
     }
 }
